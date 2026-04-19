@@ -3,6 +3,7 @@ import { Link } from '../router'
 import { TypeAnimation } from 'react-type-animation'
 import { fetchGithubProjects } from '../services/githubService'
 import { fetchBehanceProjects } from '../services/behanceService'
+import { fetchArtstationProjects } from '../services/artstationService'
 import './Hero.css'
 
 export default function Hero() {
@@ -12,14 +13,16 @@ export default function Hero() {
   useEffect(() => {
     async function hydrateProjects() {
       try {
-        const [githubSync, behanceSync] = await Promise.all([
+        const [githubSync, behanceSync, artstationSync] = await Promise.all([
           fetchGithubProjects('Anuj-dev9'),
-          fetchBehanceProjects()
+          fetchBehanceProjects(),
+          fetchArtstationProjects()
         ])
 
         let count = 1 // 1 for BNG static project
         if (githubSync && githubSync.length) count += githubSync.length
         if (behanceSync && behanceSync.length) count += behanceSync.length
+        if (artstationSync && artstationSync.length) count += artstationSync.length
 
         setProjectCount(`${count}+`)
       } catch (err) {

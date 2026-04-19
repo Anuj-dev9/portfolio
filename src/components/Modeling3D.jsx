@@ -1,41 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import './Modeling3D.css'
 
-const models = [
-  {
-    id: 1, title: 'Chrome Sculpture',
-    desc: 'Abstract organic sculpture with reflective metallic surface. Rendered in Blender with HDRI lighting and ray-tracing.',
-    img: '/images/model_3d_1.png',
-    tags: ['Blender', 'Cycles', 'Abstract'],
-    category: 'Abstract', polys: '2.4M', render: 'Cycles', time: '4h',
-    accent: '#a855f7',
-    behance: 'https://www.behance.net/gallery/198765435/Chrome-Sculpture',
-  },
-  {
-    id: 2, title: 'Neon Landscape',
-    desc: 'Futuristic low-poly terrain with glowing grid lines, volumetric fog, and a stylized game-art aesthetic.',
-    img: '/images/model_3d_2.png',
-    tags: ['Blender', 'EEVEE', 'Stylized'],
-    category: 'Environment', polys: '890K', render: 'EEVEE', time: '2h',
-    accent: '#06b6d4',
-    behance: 'https://www.behance.net/gallery/198765436/Neon-Landscape',
-  },
-  {
-    id: 3, title: 'Concept Helmet',
-    desc: 'Sci-fi helmet concept with holographic visor, matte/chrome material study, and cinematic product lighting.',
-    img: '/images/model_3d_3.png',
-    tags: ['Blender', 'Substance', 'Hard Surface'],
-    category: 'Character', polys: '3.1M', render: 'Cycles', time: '6h',
-    accent: '#ec4899',
-    behance: 'https://www.behance.net/gallery/198765437/Concept-Helmet',
-  },
-]
+import { fetchArtstationProjects } from '../services/artstationService'
 
 const software = [
-  { name: 'Blender', level: 88, icon: '🔷' },
-  { name: 'Cinema 4D', level: 72, icon: '🎬' },
-  { name: 'ZBrush', level: 65, icon: '🗿' },
-  { name: 'Substance 3D', level: 78, icon: '🎨' },
+  { name: '3ds Max', level: 70, icon: '🔷' },
+  { name: 'Maya', level: 60, icon: '🎬' },
+  { name: 'ZBrush', level: 50, icon: '🗿' },
+  { name: 'Substance 3D', level: 60, icon: '🎨' },
   { name: 'After Effects', level: 80, icon: '✨' },
 ]
 
@@ -98,10 +70,10 @@ function Model3DCard({ model, index }) {
         <div className="m3d-tags">
           {model.tags.map(t => <span key={t} className="tag tag-cyan">{t}</span>)}
         </div>
-        {model.behance && (
-          <a href={model.behance} target="_blank" rel="noopener noreferrer" className="m3d-behance-link">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-3.314-2.686-6-6-6s-6 2.686-6 6 2.686 6 6 6 6-2.686 6-6zm-6 4c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zM2 13h4v1H2v-1zm0-3h4v1H2v-1zm16-4h-4v1h4V6z"/></svg>
-            View on Behance
+        {model.artstation && (
+          <a href={model.artstation} target="_blank" rel="noopener noreferrer" className="m3d-behance-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.016 1.77L2.4 18.42h5.5l9.6-16.65h-5.484zM16.148 5.6L12.18 12.5H2.4l9.78-16.9h3.968zM21.6 18.42H13.6l7.984-13.84L21.6 18.42z" /></svg>
+            View on ArtStation
           </a>
         )}
       </div>
@@ -112,6 +84,19 @@ function Model3DCard({ model, index }) {
 
 export default function Modeling3D() {
   const [animate, setAnimate] = useState(false)
+  const [models, setModels] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function hydrate() {
+      const liveData = await fetchArtstationProjects()
+      if (liveData && liveData.length > 0) {
+        setModels(liveData)
+      }
+      setLoading(false)
+    }
+    hydrate()
+  }, [])
 
   const sectionRef = useIntersect(el => {
     setAnimate(true)
@@ -121,8 +106,8 @@ export default function Modeling3D() {
 
   return (
     <section className="section m3d-section page-enter" ref={sectionRef}>
-      <div className="orb orb-cyan"   style={{ width:500,height:500,top:'-80px',right:'-80px' }} />
-      <div className="orb orb-purple" style={{ width:450,height:450,bottom:0,left:'-80px' }} />
+      <div className="orb orb-cyan" style={{ width: 500, height: 500, top: '-80px', right: '-80px' }} />
+      <div className="orb orb-purple" style={{ width: 450, height: 450, bottom: 0, left: '-80px' }} />
       <div className="grid-bg" />
 
       <div className="container">
@@ -136,7 +121,13 @@ export default function Modeling3D() {
 
         {/* 3D Cards with tilt */}
         <div className="m3d-grid">
-          {models.map((m, i) => <Model3DCard key={m.id} model={m} index={i} />)}
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-secondary)', width: '100%' }}>
+              Syncing with ArtStation...
+            </div>
+          ) : (
+            models.map((m, i) => <Model3DCard key={m.id} model={m} index={i} />)
+          )}
         </div>
 
         {/* Workflow timeline */}
@@ -144,11 +135,11 @@ export default function Modeling3D() {
           <h2 className="m3d-workflow-title">3D <span className="gradient-text">Workflow</span></h2>
           <div className="m3d-timeline">
             {[
-              { icon:'💡', step:'Concept', desc:'Sketch, reference gathering, and mood board creation.' },
-              { icon:'🗿', step:'Modeling', desc:'Base mesh → high-poly sculpt → retopology.' },
-              { icon:'🎨', step:'Texturing', desc:'UV unwrapping, PBR materials with Substance 3D.' },
-              { icon:'💡', step:'Lighting', desc:'HDRI setup, area lights, and volumetric atmosphere.' },
-              { icon:'🎬', step:'Render', desc:'High-sample Cycles render with post-processing in Affinity.' },
+              { icon: '💡', step: 'Concept', desc: 'Sketch, reference gathering, and mood board creation.' },
+              { icon: '🗿', step: 'Modeling', desc: 'Base mesh → high-poly sculpt → retopology.' },
+              { icon: '🎨', step: 'Texturing', desc: 'UV unwrapping, PBR materials with Substance 3D.' },
+              { icon: '💡', step: 'Lighting', desc: 'HDRI setup, area lights, and volumetric atmosphere.' },
+              { icon: '🎬', step: 'Render', desc: 'High-sample Cycles render with post-processing in Affinity.' },
             ].map(({ icon, step, desc }, i) => (
               <div key={step} className="m3d-timeline-item">
                 <div className="m3d-tl-dot">
@@ -176,7 +167,7 @@ export default function Modeling3D() {
                 <div className="m3d-sw-track">
                   <div
                     className="m3d-sw-fill"
-                    style={{ width: animate ? `${sw.level}%` : '0%', transitionDelay: `${0.2 + i*0.1}s` }}
+                    style={{ width: animate ? `${sw.level}%` : '0%', transitionDelay: `${0.2 + i * 0.1}s` }}
                   />
                 </div>
               </div>

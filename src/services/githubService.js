@@ -14,6 +14,12 @@ export async function fetchGithubProjects(username = 'Anuj-dev9') {
       if (repo.topics && repo.topics.length > 0) {
         tags.push(...repo.topics.slice(0, 3));
       }
+      
+      // User explicitly requested React tag across all repos
+      if (!tags.map(t => t.toLowerCase()).includes('react')) {
+        tags.unshift('React');
+      }
+      
       if (tags.length === 0) tags.push('Open Source');
       
       // Attempt to intelligently categorize based on name or topics
