@@ -133,6 +133,9 @@ export default function Hero() {
             <a href="https://www.behance.net/anujadhikary193" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
               View Behance
             </a>
+            <a href="https://anuj_adhikary.artstation.com/" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{borderColor: 'var(--purple)', color: 'var(--purple)'}}>
+              View ArtStation
+            </a>
           </div>
 
           <div className="hero-stats">
