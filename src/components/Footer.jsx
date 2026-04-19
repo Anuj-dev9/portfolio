@@ -23,7 +23,8 @@ const navCols = [
     links: [
       { label: 'About', to: '/about' },
       { label: 'Contact', to: '/contact' },
-      { label: 'Resume', href: '/resume.pdf' },
+      { label: 'Developer Resume', href: '/resume_web.pdf' },
+      { label: 'Designer Resume', href: '/resume_design.pdf' },
     ],
   },
 ]

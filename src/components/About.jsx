@@ -49,10 +49,14 @@ export default function About() {
               design beautiful interfaces, paint digital art, and sculpt 3D worlds. One person.
               Infinite mediums.
             </p>
-            <div className="about-actions">
-              <a href="/resume.pdf" download className="btn btn-primary">
+            <div className="about-actions" style={{ flexWrap: 'wrap' }}>
+              <a href="/resume_web.pdf" download className="btn btn-primary">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                Download CV
+                Developer CV
+              </a>
+              <a href="/resume_design.pdf" download className="btn btn-primary" style={{ background: 'var(--blue)', borderColor: 'var(--blue)' }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Designer CV
               </a>
               <Link to="/contact" className="btn btn-outline">Let's Talk</Link>
             </div>

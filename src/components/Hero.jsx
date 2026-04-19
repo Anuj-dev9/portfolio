@@ -136,6 +136,14 @@ export default function Hero() {
             <a href="https://anuj_adhikary.artstation.com/" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{borderColor: 'var(--purple)', color: 'var(--purple)'}}>
               View ArtStation
             </a>
+            <a href="/resume_web.pdf" download className="btn btn-outline" style={{borderColor: 'var(--cyan)', color: 'var(--cyan)'}}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Dev CV
+            </a>
+            <a href="/resume_design.pdf" download className="btn btn-outline" style={{borderColor: 'var(--pink)', color: 'var(--pink)'}}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Design CV
+            </a>
           </div>
 
           <div className="hero-stats">
