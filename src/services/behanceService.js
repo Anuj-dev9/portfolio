@@ -89,7 +89,7 @@ const parseHtmlFallback = (html) => {
          if (lowerTitle.includes('#design')) {
              section = 'Design2D';
              displayTitle = title.replace(/#design/gi, '').trim();
-         } else if (lowerTitle.includes('#drawing')) {
+         } else if (lowerTitle.includes('#drawing') || lowerTitle.includes('painting')) {
              section = 'Gallery';
              displayTitle = title.replace(/#drawing/gi, '').trim();
          } else {

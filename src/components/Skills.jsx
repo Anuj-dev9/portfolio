@@ -1,6 +1,43 @@
 import { useEffect, useRef, useState } from 'react'
 import './Skills.css'
 
+const BALL_COLORS = ['#E8A838', '#C88820', '#C06848', '#F0C060', '#D4A040', '#B07828']
+
+function FloatingBalls({ count = 18 }) {
+  const balls = Array.from({ length: count }, (_, i) => ({
+    id: i,
+    size: 10 + Math.random() * 36,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    duration: 10 + Math.random() * 12,
+    delay: Math.random() * -20,
+    color: BALL_COLORS[i % BALL_COLORS.length],
+    opacity: 0.12 + Math.random() * 0.25,
+  }))
+
+  return (
+    <div className="floating-balls">
+      {balls.map(b => (
+        <div
+          key={b.id}
+          className="floating-ball"
+          style={{
+            width: b.size,
+            height: b.size,
+            left: `${b.x}%`,
+            top: `${b.y}%`,
+            background: `radial-gradient(circle at 35% 35%, ${b.color}dd, ${b.color}66, ${b.color}22)`,
+            opacity: b.opacity,
+            animationDuration: `${b.duration}s`,
+            animationDelay: `${b.delay}s`,
+            boxShadow: `0 0 ${b.size * 0.5}px ${b.color}33, inset 0 -${b.size * 0.12}px ${b.size * 0.25}px rgba(0,0,0,0.3), inset 0 ${b.size * 0.08}px ${b.size * 0.15}px rgba(255,255,255,0.12)`,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
 const skillCategories = [
   {
     label: 'Frontend',
@@ -64,7 +101,11 @@ export default function Skills() {
     <section id="skills" className="section skills-section" ref={sectionRef}>
       <div className="orb orb-cyan skills-orb" />
       <div className="grid-bg" />
-      <div className="container">
+
+      {/* Floating balls background */}
+      <FloatingBalls count={20} />
+
+      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         <div className="section-header fade-in" style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <p className="section-label">My Expertise</p>
           <h2 className="section-title">Skills & <span className="gradient-text">Technologies</span></h2>

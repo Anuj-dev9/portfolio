@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { fetchBehanceProjects } from '../services/behanceService'
+import CircularGallery from './CircularGallery'
 import './Design2D.css'
 
 
@@ -59,7 +60,15 @@ export default function Design2D() {
         setAllDesigns(mappedLive)
       }
     });
-  }, [])
+  }, []);
+  
+  // CircularGallery now handles its own Behance fetching with section filter
+  const circularGalleryProps = {
+    section: 'Design2D',
+    bend: 3,
+    textColor: '#ffffff',
+    borderRadius: 0.05
+  }
 
   const [sectionRef, isIntersected] = useIntersect(0.1)
   const isVisible = isIntersected ? 'visible' : ''
@@ -99,6 +108,19 @@ export default function Design2D() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Circular gallery - no need to pass items, it fetches from Behance for Design2D section */}
+      <div className={`fade-in ${isVisible}`} style={{ width: '100%', marginBottom: '4rem', marginTop: '2rem' }}>
+        <CircularGallery
+          section="Design2D"
+          bend={3}
+          textColor="#ffffff"
+          borderRadius={0.05}
+        />
+      </div>
+
+      <div className="container">
 
         {/* Filter */}
         <div className={`d2d-filters fade-in ${isVisible}`}>

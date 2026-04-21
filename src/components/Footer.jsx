@@ -83,7 +83,7 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <div className="container footer-bottom-inner">
-          <p className="footer-copy">© {new Date().getFullYear()} Anuj Adhikary · Made with React & ❤️</p>
+          <p className="footer-copy">© {new Date().getFullYear()} Anuj Adhikary '<span className='gradient-text'>Dev-9</span>'</p>
           <Link to="/" className="footer-back-top" aria-label="Back to top">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 15l-6-6-6 6" /></svg>
           </Link>

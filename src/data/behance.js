@@ -1,14 +1,9 @@
-// Import assets
-import nikeImg from '../assets/projects/nike_air.png'
-import bridalImg from '../assets/projects/bridal.png'
-import mindImg from '../assets/projects/mind.png'
-
 export const behanceProjects = [
   {
     id: 1,
     title: 'PURE CONTRAST — Nike Air Visual Campaign',
     category: 'Advertising',
-    img: nikeImg,
+    img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800',
     medium: 'Digital Concept',
     year: '2024',
     tags: ['Nike', 'Visuals', 'Ad'],
@@ -18,7 +13,7 @@ export const behanceProjects = [
     id: 2,
     title: 'Bridal Elegance – A Celebration of Timeless Beauty',
     category: 'Fashion',
-    img: bridalImg,
+    img: 'https://images.unsplash.com/photo-1594462759182-da284f18398e?auto=format&fit=crop&q=80&w=800',
     medium: 'Creative Design',
     year: '2024',
     tags: ['Fashion', 'Clean', 'Elegance'],
@@ -28,7 +23,7 @@ export const behanceProjects = [
     id: 3,
     title: 'Inside the Mind',
     category: 'Abstract',
-    img: mindImg,
+    img: 'https://images.unsplash.com/photo-1550684847-75bdda21cc95?auto=format&fit=crop&q=80&w=800',
     medium: 'Digital Art',
     year: '2023',
     tags: ['Art', 'Mind', 'Visual'],

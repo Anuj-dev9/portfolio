@@ -89,11 +89,16 @@ export default function Modeling3D() {
 
   useEffect(() => {
     async function hydrate() {
-      const liveData = await fetchArtstationProjects()
-      if (liveData && liveData.length > 0) {
-        setModels(liveData)
+      try {
+        const liveData = await fetchArtstationProjects()
+        if (liveData && liveData.length > 0) {
+          setModels(liveData)
+        }
+      } catch (err) {
+        console.error('Hydration failed', err);
+      } finally {
+        setLoading(false)
       }
-      setLoading(false)
     }
     hydrate()
   }, [])

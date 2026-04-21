@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from '../router'
 import { TypeAnimation } from 'react-type-animation'
 import { fetchGithubProjects } from '../services/githubService'
 import { fetchBehanceProjects } from '../services/behanceService'
 import { fetchArtstationProjects } from '../services/artstationService'
+import DotGrid from './DotGrid'
 import './Hero.css'
 
 export default function Hero() {
-  const canvasRef = useRef(null)
   const [projectCount, setProjectCount] = useState('..')
 
   useEffect(() => {
@@ -32,61 +32,11 @@ export default function Hero() {
     hydrateProjects()
   }, [])
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    let animId, particles = []
-
-    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight }
-    resize()
-    window.addEventListener('resize', resize)
-
-    class Particle {
-      constructor() { this.reset() }
-      reset() {
-        this.x = Math.random() * canvas.width
-        this.y = Math.random() * canvas.height
-        this.size = Math.random() * 1.8 + 0.3
-        this.vx = (Math.random() - 0.5) * 0.35
-        this.vy = (Math.random() - 0.5) * 0.35
-        this.opacity = Math.random() * 0.55 + 0.1
-        this.color = ['168,85,247', '6,182,212', '236,72,153'][Math.floor(Math.random() * 3)]
-      }
-      update() {
-        this.x += this.vx; this.y += this.vy
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset()
-      }
-      draw() {
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${this.color},${this.opacity})`
-        ctx.fill()
-      }
-    }
-
-    for (let i = 0; i < 110; i++) particles.push(new Particle())
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      particles.forEach(p => { p.update(); p.draw() })
-      particles.forEach((a, i) => particles.slice(i + 1).forEach(b => {
-        const d = Math.hypot(a.x - b.x, a.y - b.y)
-        if (d < 110) {
-          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y)
-          ctx.strokeStyle = `rgba(168,85,247,${0.08 * (1 - d / 110)})`
-          ctx.lineWidth = 0.5; ctx.stroke()
-        }
-      }))
-      animId = requestAnimationFrame(animate)
-    }
-    animate()
-    return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', resize) }
-  }, [])
-
   return (
     <section className="hero" id="home">
-      <canvas ref={canvasRef} className="hero-canvas" />
+      <div className="hero-canvas" style={{ pointerEvents: 'auto' }}>
+        <DotGrid activeColor="#E8A838" baseColor="#555555" proximity={250} />
+      </div>
       <div className="hero-orb hero-orb-1" />
       <div className="hero-orb hero-orb-2" />
       <div className="hero-orb hero-orb-3" />
