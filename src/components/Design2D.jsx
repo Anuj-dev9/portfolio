@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { fetchBehanceProjects } from '../services/behanceService'
+import { behanceProjects as fallbackData } from '../data/behance'
 import CircularGallery from './CircularGallery'
 import './Design2D.css'
 
@@ -11,14 +12,23 @@ function useIntersect(threshold = 0.1) {
   const [isIntersected, setIsIntersected] = useState(false)
   const ref = useRef(null)
   useEffect(() => {
+    // Safety timeout: force visibility after 2.5s if observer fails (common on mobile)
+    const timer = setTimeout(() => {
+        setIsIntersected(true)
+    }, 2500)
+
     const obs = new IntersectionObserver(e => { 
       if (e[0].isIntersecting) {
         setIsIntersected(true)
         obs.disconnect()
+        clearTimeout(timer)
       }
     }, { threshold })
     if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
+    return () => {
+        obs.disconnect()
+        clearTimeout(timer)
+    }
   }, [])
   return [ref, isIntersected]
 }
@@ -27,38 +37,48 @@ export default function Design2D() {
   const [active, setActive] = useState(null)
   const [filter, setFilter] = useState('All')
   const [allDesigns, setAllDesigns] = useState([])
+  const [loading, setLoading] = useState(true)
   
   useEffect(() => {
     fetchBehanceProjects().then(liveData => {
-      if (liveData) {
-        const liveDesign2D = liveData.filter(p => p.portfolioSection === 'Design2D');
-        const mappedLive = liveDesign2D.map(p => {
-            let cat = 'Digital Art'; // fallback
-            const t = p.title.toUpperCase();
-            
-            // Reassign geometric/poly visual themes to Digital Art instead of 3D Art
-            if (t.includes('LOWPOLY') || t.includes('CORRIDOR') || t.includes('GEOMETRIC') || t.includes('DUALITY')) cat = 'Digital Art';
-            else if (t.includes('ESPORTS') || t.includes('BRAND') || t.includes('CONTRAST') || t.includes('NIKE')) cat = 'Branding & Ads';
-            else if (t.includes('POSTER')) cat = 'Posters';
-            else if (t.includes('EMPEROR') || t.includes('MIND') || t.includes('CYBERPUNK')) cat = 'Concept Art';
-            else if (t.includes('BAKER')) cat = 'Illustration';
-            
-            return {
-              id: p.id,
-              title: p.title,
-              desc: 'Discover more about this project directly in the Behance portfolio lightbox.',
-              tags: [cat, 'Creative', 'Design'],
-              category: cat,
-              img: p.img,
-              accent: '#f43f5e',
-              tools: ['Photoshop', 'Illustrator', 'Blender'], 
-              behance: p.behance
-            };
-        });
-        
-        // Only use the fetched Behance projects
-        setAllDesigns(mappedLive)
+      let sourceData = liveData;
+      
+      // If live fetch fails, use local fallback data but filter for Design2D-like items
+      if (!sourceData || sourceData.length === 0) {
+          sourceData = fallbackData.map(p => ({
+              ...p,
+              portfolioSection: p.title.toUpperCase().includes('PORTRAIT') || p.title.toUpperCase().includes('AUTUMN') ? 'Gallery' : 'Design2D'
+          }));
       }
+
+      const liveDesign2D = sourceData.filter(p => p.portfolioSection === 'Design2D');
+      const mappedLive = liveDesign2D.map(p => {
+          let cat = 'Digital Art'; // fallback
+          const t = p.title.toUpperCase();
+          
+          if (t.includes('LOWPOLY') || t.includes('CORRIDOR') || t.includes('GEOMETRIC') || t.includes('DUALITY')) cat = 'Digital Art';
+          else if (t.includes('ESPORTS') || t.includes('BRAND') || t.includes('CONTRAST') || t.includes('NIKE')) cat = 'Branding & Ads';
+          else if (t.includes('POSTER')) cat = 'Posters';
+          else if (t.includes('EMPEROR') || t.includes('MIND') || t.includes('CYBERPUNK')) cat = 'Concept Art';
+          else if (t.includes('BAKER')) cat = 'Illustration';
+          
+          return {
+            id: p.id,
+            title: p.title,
+            desc: 'Discover more about this project directly in the Behance portfolio lightbox.',
+            tags: [cat, 'Creative', 'Design'],
+            category: cat,
+            img: p.img,
+            accent: '#f43f5e',
+            tools: ['Photoshop', 'Illustrator', 'Blender'], 
+            behance: p.behance
+          };
+      });
+      
+      setAllDesigns(mappedLive)
+      setLoading(false)
+    }).catch(() => {
+        setLoading(false)
     });
   }, []);
   
@@ -136,40 +156,47 @@ export default function Design2D() {
         </div>
 
         {/* Design cards */}
-        <div className="d2d-grid">
-          {filtered.map((d, i) => (
-            <div
-              key={d.id}
-              className={`d2d-card glass-card fade-scale ${isVisible}`}
-              style={{ '--accent': d.accent, transitionDelay: isVisible ? `${i * 0.1}s` : '0s' }}
-              onClick={() => setActive(d)}
-            >
-              <div className="d2d-img-wrap">
-                <img src={d.img} alt={d.title} className="d2d-img" loading="lazy" />
-                <div className="d2d-img-overlay">
-                  <div className="d2d-overlay-content">
-                    <span className="d2d-view-btn">View Full ↗</span>
+        {loading ? (
+           <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-secondary)' }}>
+             <div className="spinner" style={{ marginBottom: '1rem' }} />
+             <p>Loading curated designs...</p>
+           </div>
+        ) : (
+          <div className="d2d-grid">
+            {filtered.map((d, i) => (
+              <div
+                key={d.id}
+                className={`d2d-card glass-card fade-scale ${isVisible}`}
+                style={{ '--accent': d.accent, transitionDelay: isVisible ? `${i * 0.1}s` : '0s' }}
+                onClick={() => setActive(d)}
+              >
+                <div className="d2d-img-wrap">
+                  <img src={d.img} alt={d.title} className="d2d-img" loading="lazy" />
+                  <div className="d2d-img-overlay">
+                    <div className="d2d-overlay-content">
+                      <span className="d2d-view-btn">View Full ↗</span>
+                    </div>
                   </div>
+                  <div className="d2d-category-chip">{d.category}</div>
                 </div>
-                <div className="d2d-category-chip">{d.category}</div>
-              </div>
-              <div className="d2d-body">
-                <h3 className="d2d-title">{d.title}</h3>
-                <p className="d2d-desc">{d.desc}</p>
-                <div className="d2d-meta">
-                  <div className="d2d-tags">{d.tags?.map(t => <span key={t} className="tag tag-pink">{t}</span>)}</div>
-                  <div className="d2d-tools">{d.tools?.map(t => <span key={t} className="d2d-tool">{t}</span>)}</div>
+                <div className="d2d-body">
+                  <h3 className="d2d-title">{d.title}</h3>
+                  <p className="d2d-desc">{d.desc}</p>
+                  <div className="d2d-meta">
+                    <div className="d2d-tags">{d.tags?.map(t => <span key={t} className="tag tag-pink">{t}</span>)}</div>
+                    <div className="d2d-tools">{d.tools?.map(t => <span key={t} className="d2d-tool">{t}</span>)}</div>
+                  </div>
+                  {d.behance && (
+                    <a href={d.behance} target="_blank" rel="noopener noreferrer" className="d2d-behance-link">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-3.314-2.686-6-6-6s-6 2.686-6 6 2.686 6 6 6 6-2.686 6-6zm-6 4c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zM2 13h4v1H2v-1zm0-3h4v1H2v-1zm16-4h-4v1h4V6z"/></svg>
+                      View on Behance
+                    </a>
+                  )}
                 </div>
-                {d.behance && (
-                  <a href={d.behance} target="_blank" rel="noopener noreferrer" className="d2d-behance-link">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-3.314-2.686-6-6-6s-6 2.686-6 6 2.686 6 6 6 6-2.686 6-6zm-6 4c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zM2 13h4v1H2v-1zm0-3h4v1H2v-1zm16-4h-4v1h4V6z"/></svg>
-                    View on Behance
-                  </a>
-                )}
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Process section */}
         <div className={`d2d-process fade-up ${isVisible}`}>

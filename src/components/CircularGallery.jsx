@@ -15,6 +15,16 @@ function lerp(p1, p2, t) {
   return p1 + (p2 - p1) * t;
 }
 
+function isWebGLSupported() {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext && 
+      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+  } catch (e) {
+    return false;
+  }
+}
+
 /**
  * Loads an image URL and returns an ImageBitmap (or HTMLImageElement fallback)
  * that is safe to use with WebGL texImage2D.
@@ -229,6 +239,7 @@ class App {
 
     try {
       this.createRenderer();
+      if (!this.gl) throw new Error('WebGL context creation failed');
       this.createCamera();
       this.createScene();
       this.onResize();
@@ -238,6 +249,8 @@ class App {
       this.addEventListeners();
     } catch (error) {
       console.error('CircularGallery initialization error:', error);
+      this.destroyed = true;
+      throw error; // Re-throw to be caught by React component
     }
   }
 
@@ -343,18 +356,27 @@ class App {
   update() {
     if (this.destroyed) return;
 
-    // Smooth continuous auto-scroll
-    this.scroll.target += this.scrollSpeed * 0.02;
+    try {
+        // Smooth continuous auto-scroll
+        this.scroll.target += this.scrollSpeed * 0.02;
 
-    this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
-    const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
-    if (this.medias) {
-      this.medias.forEach(media => media.update(this.scroll, direction));
+        this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
+        const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
+        if (this.medias) {
+          this.medias.forEach(media => {
+              if (media && typeof media.update === 'function') media.update(this.scroll, direction);
+          });
+        }
+
+        if (this.renderer && typeof this.renderer.render === 'function') {
+            this.renderer.render({ scene: this.scene, camera: this.camera });
+        }
+        this.scroll.last = this.scroll.current;
+        this.raf = window.requestAnimationFrame(this.update.bind(this));
+    } catch (err) {
+        console.error('[CircularGallery] Render loop error:', err);
+        this.destroy();
     }
-
-    this.renderer.render({ scene: this.scene, camera: this.camera });
-    this.scroll.last = this.scroll.current;
-    this.raf = window.requestAnimationFrame(this.update.bind(this));
   }
 
   addEventListeners() {
@@ -385,6 +407,15 @@ export default function CircularGallery({
   const containerRef = useRef(null);
   const appRef = useRef(null);
   const [galleryItems, setGalleryItems] = useState(items || []);
+  const [webglError, setWebglError] = useState(false);
+
+  useEffect(() => {
+    // Check WebGL support once
+    if (!isWebGLSupported()) {
+        console.warn('[CircularGallery] WebGL is not supported on this device. Falling back to CSS gallery.');
+        setWebglError(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (items && items.length > 0) {
@@ -411,7 +442,7 @@ export default function CircularGallery({
   }, [items, section]);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || webglError) return;
 
     if (appRef.current) {
       appRef.current.destroy();
@@ -427,10 +458,15 @@ export default function CircularGallery({
       ];
     }
 
-    const app = new App(containerRef.current, {
-      items: itemsToUse, bend, textColor, font, scrollSpeed, scrollEase
-    });
-    appRef.current = app;
+    try {
+        const app = new App(containerRef.current, {
+          items: itemsToUse, bend, textColor, font, scrollSpeed, scrollEase
+        });
+        appRef.current = app;
+    } catch (err) {
+        console.error('[CircularGallery] App initialization failed:', err);
+        setWebglError(true);
+    }
 
     return () => {
       if (appRef.current) {
@@ -438,7 +474,27 @@ export default function CircularGallery({
         appRef.current = null;
       }
     };
-  }, [galleryItems, bend, textColor, font, scrollSpeed, scrollEase]);
+  }, [galleryItems, bend, textColor, font, scrollSpeed, scrollEase, webglError]);
+
+  if (webglError) {
+    const fallbackItems = galleryItems.length > 0 ? galleryItems : [
+        { image: 'https://picsum.photos/seed/design1/800/600', text: 'Gallery Item 1' },
+        { image: 'https://picsum.photos/seed/design2/800/600', text: 'Gallery Item 2' },
+        { image: 'https://picsum.photos/seed/design3/800/600', text: 'Gallery Item 3' },
+    ];
+    return (
+        <div className="circular-gallery-wrapper">
+            <div className="circular-gallery-fallback">
+                {fallbackItems.map((item, i) => (
+                    <div key={i} className="circular-gallery-fallback-item">
+                        <img src={item.image} alt={item.text} className="circular-gallery-fallback-img" />
+                        <span className="circular-gallery-fallback-label">{item.text}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+  }
 
   return (
     <div className="circular-gallery-wrapper">

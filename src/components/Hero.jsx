@@ -103,18 +103,7 @@ export default function Hero() {
             <div className="hero-avatar-ring" />
             <div className="hero-avatar-ring ring-2" />
             <div className="hero-avatar">
-              <svg viewBox="0 0 200 200" className="avatar-svg">
-                <defs>
-                  <linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#a855f7" />
-                    <stop offset="100%" stopColor="#06b6d4" />
-                  </linearGradient>
-                </defs>
-                <circle cx="100" cy="100" r="100" fill="url(#ag)" opacity="0.15" />
-                <circle cx="100" cy="78" r="34" fill="url(#ag)" opacity="0.85" />
-                <ellipse cx="100" cy="158" rx="54" ry="40" fill="url(#ag)" opacity="0.65" />
-              </svg>
-              <span className="avatar-initials">AA</span>
+              <img src="/Untitled-1.png" alt="Anuj Adhikary" className="avatar-img" />
             </div>
           </div>
 
