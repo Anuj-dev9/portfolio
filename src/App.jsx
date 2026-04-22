@@ -1,6 +1,7 @@
 import { Router, Route } from './router'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import BackToTop from './components/BackToTop'
 import HomePage       from './pages/HomePage'
 import ProjectsPage   from './pages/ProjectsPage'
 import Design2DPage   from './pages/Design2DPage'
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/contact"  element={<ContactPage />} />
         </main>
         <Footer />
+        <BackToTop />
       </div>
     </Router>
   )

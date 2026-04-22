@@ -74,19 +74,14 @@ export default function Footer() {
         <div className="footer-cta">
           <h4 className="footer-nav-heading">Let's create together</h4>
           <p className="footer-cta-text">Open to freelance, full-time, or just a great conversation.</p>
-          <a href="mailto:hello@anujadhikary.com" className="btn btn-primary footer-cta-btn">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
-            Say Hello 👋
-          </a>
+
         </div>
       </div>
 
       <div className="footer-bottom">
         <div className="container footer-bottom-inner">
           <p className="footer-copy">© {new Date().getFullYear()} Anuj Adhikary '<span className='gradient-text'>Dev-9</span>'</p>
-          <Link to="/" className="footer-back-top" aria-label="Back to top">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 15l-6-6-6 6" /></svg>
-          </Link>
+
         </div>
       </div>
     </footer>

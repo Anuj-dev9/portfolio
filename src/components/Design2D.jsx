@@ -130,10 +130,13 @@ export default function Design2D() {
         </div>
       </div>
 
-      {/* Circular gallery - no need to pass items, it fetches from Behance for Design2D section */}
+      {/* Circular gallery - pass all design items directly */}
       <div className={`fade-in ${isVisible}`} style={{ width: '100%', marginBottom: '4rem', marginTop: '2rem' }}>
         <CircularGallery
-          section="Design2D"
+          items={allDesigns.map(d => ({
+            image: `https://wsrv.nl/?url=${encodeURIComponent(d.img)}&w=800&h=600&fit=cover`,
+            text: d.title
+          }))}
           bend={3}
           textColor="#ffffff"
           borderRadius={0.05}
