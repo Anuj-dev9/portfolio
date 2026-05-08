@@ -721,7 +721,11 @@ const Ballpit = ({ className = '', followCursor = true, ...props }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    spheresInstanceRef.current = createBallpit(canvas, { followCursor, ...props });
+    try {
+      spheresInstanceRef.current = createBallpit(canvas, { followCursor, ...props });
+    } catch (err) {
+      console.error('Ballpit failed to initialize:', err);
+    }
 
     return () => {
       if (spheresInstanceRef.current) {
