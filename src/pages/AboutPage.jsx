@@ -1,2 +1,11 @@
 import About from '../components/About'
-export default function AboutPage() { return <About /> }
+import Certificates from '../components/Certificates'
+
+export default function AboutPage() { 
+  return (
+    <>
+      <About />
+      <Certificates />
+    </>
+  )
+}
