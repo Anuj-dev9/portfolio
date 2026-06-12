@@ -89,7 +89,7 @@ export const fetchArtstationProjects = async () => {
 
       // Check for parsing errors
       const errorNode = xmlDoc.querySelector('parsererror');
-      if (errorNode) continue;
+      if (errorNode) throw new Error('XML parsing error');
 
       const items = xmlDoc.getElementsByTagName('item');
       console.log(`ArtStation Feed: Found ${items.length} items`);
