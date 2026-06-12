@@ -24,21 +24,17 @@ export async function fetchGithubProjects(username = 'Anuj-dev9') {
       
       // Attempt to intelligently categorize based on name or topics
       let cat = 'Full Stack';
-      let icon = '⚡';
       let accent = '#3b82f6';
       
       const lowerName = repo.name.toLowerCase();
       if (lowerName.includes('react') || lowerName.includes('front') || lowerName.includes('web')) {
         cat = 'Frontend';
-        icon = '✨';
         accent = '#a855f7';
       } else if (lowerName.includes('api') || lowerName.includes('back') || lowerName.includes('node') || lowerName.includes('express')) {
         cat = 'Backend';
-        icon = '⚙️';
         accent = '#10b981';
       } else if (lowerName.includes('task') || lowerName.includes('flow')) {
         cat = 'Productivity';
-        icon = '📋';
         accent = '#ec4899';
       }
       
@@ -51,7 +47,6 @@ export async function fetchGithubProjects(username = 'Anuj-dev9') {
         category: cat,
         accent: accent,
         color: accent,
-        icon: icon,
         links: {
           code: repo.html_url,
           live: repo.homepage || repo.html_url,

@@ -10,7 +10,6 @@ const projects = [
     tags: ['React', 'CSSS', 'HTML'],
     category: 'Full Stack',
     accent: '#ec4899',
-    icon: '✨',
     featured: true,
     links: { live: 'https://www.bngdesignstudio.com/', code: null },
     stats: [['Modern', 'Design'], ['Responsive', 'UI'], ['Fast', 'Load']],
@@ -23,7 +22,6 @@ const projects = [
     tags: ['Javascript', 'CSS', 'HTML'],
     category: 'Frontend',
     accent: '#ec4899',
-    icon: '✨',
     featured: true,
     links: { live: 'https://jamesebeecham.com/', code: null, },
     stats: [, ['Responsive', 'UI'], ['Fast', 'Load']],
@@ -106,13 +104,10 @@ export default function FrontendProjects() {
               className={`fp-card glass-card fade-scale ${p.featured ? 'fp-card--featured' : ''} visible`}
               style={{ '--accent': p.accent, transitionDelay: `${i * 0.07}s` }}
             >
-              {p.featured && <div className="fp-featured-badge">⭐ Featured</div>}
+              {p.featured && <div className="fp-featured-badge">Featured</div>}
               {p.isGithub && <div className="fp-featured-badge" style={{ background: 'var(--bg-card)', color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>Dev-9</div>}
 
               <div className="fp-card-top">
-                <div className="fp-icon" style={{ background: `${p.accent}18` }}>
-                  <span>{p.icon}</span>
-                </div>
                 <span className="fp-category" style={{ color: p.accent }}>{p.category}</span>
               </div>
 

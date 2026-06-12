@@ -41,7 +41,6 @@ function FloatingBalls({ count = 18 }) {
 const skillCategories = [
   {
     label: 'Frontend',
-    icon: '🎨',
     skills: [
       { name: 'React / Next.js', level: 92 },
       { name: 'TypeScript', level: 85 },
@@ -51,7 +50,6 @@ const skillCategories = [
   },
   {
     label: 'Backend',
-    icon: '⚙️',
     skills: [
       { name: 'Node.js / Express', level: 88 },
       { name: 'Python / Django', level: 78 },
@@ -61,7 +59,6 @@ const skillCategories = [
   },
   {
     label: 'Database & Cloud',
-    icon: '🗄️',
     skills: [
       { name: 'MongoDB', level: 85 },
       { name: 'PostgreSQL', level: 80 },
@@ -122,7 +119,6 @@ export default function Skills() {
               className={`skills-tab ${activeCategory === i ? 'active' : ''}`}
               onClick={() => setActiveCategory(i)}
             >
-              <span>{cat.icon}</span>
               {cat.label}
             </button>
           ))}

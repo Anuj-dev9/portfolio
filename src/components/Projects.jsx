@@ -10,7 +10,6 @@ const projects = [
     tags: ['React', 'CSS', 'Vite'],
     category: 'Full Stack',
     color: '#ec4899',
-    icon: '✨',
     links: { live: 'https://www.bngdesignstudio.com/', github: null },
     featured: true,
   }
@@ -85,12 +84,8 @@ export default function Projects() {
               className={`project-card glass-card fade-in visible ${project.featured ? 'featured' : ''}`}
               style={{ '--card-color': project.color, animationDelay: `${i * 0.1}s` }}
             >
-              {project.featured && <div className="featured-badge">⭐ Featured</div>}
+              {project.featured && <div className="featured-badge">Featured</div>}
               {project.isGithub && <div className="featured-badge" style={{background: 'var(--bg-card)', color: 'var(--text-secondary)', border: '1px solid var(--glass-border)'}}>Dev-9</div>}
-
-              <div className="project-icon-wrapper" style={{ background: `${project.color}18` }}>
-                <span className="project-icon">{project.icon}</span>
-              </div>
 
               <div className="project-meta">
                 <span className="project-category" style={{ color: project.color }}>{project.category}</span>

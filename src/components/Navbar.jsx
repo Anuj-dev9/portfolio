@@ -3,13 +3,13 @@ import { Link, useRouter } from '../router'
 import './Navbar.css'
 
 const navLinks = [
-  { label: 'Home',      to: '/',         icon: '⌂' },
-  { label: 'Projects',  to: '/projects', icon: '💻' },
-  { label: 'Design',    to: '/design',   icon: '🎨' },
-  { label: 'Gallery',   to: '/gallery',  icon: '🖼️' },
-  { label: '3D',        to: '/3d',       icon: '🧊' },
-  { label: 'About',     to: '/about',    icon: '👤' },
-  { label: 'Contact',   to: '/contact',  icon: '✉️' },
+  { label: 'Home',      to: '/' },
+  { label: 'Projects',  to: '/projects' },
+  { label: 'Design',    to: '/design' },
+  { label: 'Gallery',   to: '/gallery' },
+  { label: '3D',        to: '/3d' },
+  { label: 'About',     to: '/about' },
+  { label: 'Contact',   to: '/contact' },
 ]
 
 export default function Navbar() {

@@ -4,11 +4,11 @@ import './Modeling3D.css'
 import { fetchArtstationProjects } from '../services/artstationService'
 
 const software = [
-  { name: '3ds Max', level: 70, icon: '🔷' },
-  { name: 'Maya', level: 60, icon: '🎬' },
-  { name: 'ZBrush', level: 50, icon: '🗿' },
-  { name: 'Substance 3D', level: 60, icon: '🎨' },
-  { name: 'After Effects', level: 80, icon: '✨' },
+  { name: '3ds Max', level: 70 },
+  { name: 'Maya', level: 60 },
+  { name: 'ZBrush', level: 50 },
+  { name: 'Substance 3D', level: 60 },
+  { name: 'After Effects', level: 80 },
 ]
 
 function useIntersect(cb, threshold = 0.1) {
@@ -140,15 +140,14 @@ export default function Modeling3D() {
           <h2 className="m3d-workflow-title">3D <span className="gradient-text">Workflow</span></h2>
           <div className="m3d-timeline">
             {[
-              { icon: '💡', step: 'Concept', desc: 'Sketch, reference gathering, and mood board creation.' },
-              { icon: '🗿', step: 'Modeling', desc: 'Base mesh → high-poly sculpt → retopology.' },
-              { icon: '🎨', step: 'Texturing', desc: 'UV unwrapping, PBR materials with Substance 3D.' },
-              { icon: '💡', step: 'Lighting', desc: 'HDRI setup, area lights, and volumetric atmosphere.' },
-              { icon: '🎬', step: 'Render', desc: 'High-sample Cycles render with post-processing in Affinity.' },
-            ].map(({ icon, step, desc }, i) => (
+              { step: 'Concept', desc: 'Sketch, reference gathering, and mood board creation.' },
+              { step: 'Modeling', desc: 'Base mesh → high-poly sculpt → retopology.' },
+              { step: 'Texturing', desc: 'UV unwrapping, PBR materials with Substance 3D.' },
+              { step: 'Lighting', desc: 'HDRI setup, area lights, and volumetric atmosphere.' },
+              { step: 'Render', desc: 'High-sample Cycles render with post-processing in Affinity.' },
+            ].map(({ step, desc }, i) => (
               <div key={step} className="m3d-timeline-item">
                 <div className="m3d-tl-dot">
-                  <span>{icon}</span>
                   {i < 4 && <div className="m3d-tl-line" />}
                 </div>
                 <h4 className="m3d-tl-step">{step}</h4>
@@ -165,7 +164,6 @@ export default function Modeling3D() {
             {software.map((sw, i) => (
               <div key={sw.name} className="m3d-sw-row">
                 <div className="m3d-sw-info">
-                  <span className="m3d-sw-icon">{sw.icon}</span>
                   <span className="m3d-sw-name">{sw.name}</span>
                   <span className="m3d-sw-pct">{sw.level}%</span>
                 </div>

@@ -40,10 +40,10 @@ function FloatingBalls({ count = 20 }) {
 }
 
 const highlights = [
-  { icon: '🎓', title: 'Education', desc: 'BCA, Amity University, 2026' },
-  { icon: '💼', title: 'Experience', desc: '1+ year in freelancing' },
-  { icon: '🌍', title: 'Location', desc: 'Based remotely — Available for global collaborations' },
-  { icon: '🎨', title: 'Disciplines', desc: 'Frontend Dev · 2D Design · Digital Art · 3D Modeling' },
+  { title: 'Education', desc: 'BCA, Amity University, 2026' },
+  { title: 'Experience', desc: '1+ year in freelancing' },
+  { title: 'Location', desc: 'Based remotely — Available for global collaborations' },
+  { title: 'Disciplines', desc: 'Frontend Dev · 2D Design · Digital Art · 3D Modeling' },
 ]
 
 const timeline = [
@@ -115,7 +115,7 @@ export default function About() {
     design: ["Figma", "Photoshop", "Illustrator"],
     art3d:  ["3ds Max", "Maya"],
   },
-  openTo: "Everything creative 🚀",
+  openTo: "Everything creative",
 };`}</code></pre>
             </div>
           </div>
@@ -125,7 +125,6 @@ export default function About() {
         <div className="about-highlights fade-up">
           {highlights.map(h => (
             <div key={h.title} className="about-highlight-card">
-              <span className="about-hl-icon">{h.icon}</span>
               <h3 className="about-hl-title">{h.title}</h3>
               <p className="about-hl-desc">{h.desc}</p>
             </div>
@@ -154,13 +153,12 @@ export default function About() {
         {/* Fun facts */}
         <div className="about-facts fade-up">
           {[
-            ['☕', 'Coffee consumed', '~1,000 cups/year'],
-            ['💻', 'Lines of code', '100K+'],
-            ['🎨', 'Artworks created', '20+'],
-            ['🌙', 'Late night sessions', 'Countless'],
-          ].map(([icon, label, val]) => (
+            ['Coffee consumed', '~1,000 cups/year'],
+            ['Lines of code', '100K+'],
+            ['Artworks created', '20+'],
+            ['Late night sessions', 'Countless'],
+          ].map(([label, val]) => (
             <div key={label} className="about-fact">
-              <span className="about-fact-icon">{icon}</span>
               <span className="about-fact-val gradient-text">{val}</span>
               <span className="about-fact-label">{label}</span>
             </div>

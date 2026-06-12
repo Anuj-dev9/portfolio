@@ -109,12 +109,12 @@ export default function Hero() {
 
           <div className="float-cards">
             {[
-              { icon: '⚛️', label: 'React', top: '0%', left: '-18%', delay: '0s' },
-              { icon: '🎨', label: 'Design', top: '12%', right: '-18%', delay: '0.6s' },
-              { icon: '🚀', label: '3d', bottom: '15%', right: '-15%', delay: '0.9s' },
-            ].map(({ icon, label, delay, ...pos }) => (
+              { label: 'React', top: '0%', left: '-18%', delay: '0s' },
+              { label: 'Design', top: '12%', right: '-18%', delay: '0.6s' },
+              { label: '3d', bottom: '15%', right: '-15%', delay: '0.9s' },
+            ].map(({ label, delay, ...pos }) => (
               <div key={label} className="float-card" style={{ ...pos, animationDelay: delay }}>
-                <span>{icon}</span> {label}
+                {label}
               </div>
             ))}
           </div>
