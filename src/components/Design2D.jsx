@@ -108,12 +108,12 @@ export default function Design2D() {
   return (
     <section className="section d2d-section page-enter" ref={sectionRef}>
       <div className="orb orb-cyan" style={{ width:500,height:500,top:0,left:'-100px' }} />
-      <div className="orb orb-pink" style={{ width:400,height:400,bottom:0,right:'-80px' }} />
+      <div className="orb orb-gold" style={{ width:400,height:400,bottom:0,right:'-80px' }} />
 
       <div className="container">
         <div className={`section-header-center fade-in ${isVisible}`}>
           <p className="section-label">Professional Works</p>
-          <h1 className="section-title">Visual <span className="gradient-text-pink">Design</span></h1>
+          <h1 className="section-title">Visual <span className="gradient-text">Design</span></h1>
           <p className="section-subtitle">
             Visual identities, posters, 3D explorations, and concept art — crafted with precision.
           </p>
@@ -123,7 +123,7 @@ export default function Design2D() {
         <div className={`d2d-stats fade-up ${isVisible}`}>
           {[['15+','Creative Projects'],['4','Design Tools'],['100%','Original Concepts'],['3D & 2D','Workflows']].map(([n,l]) => (
             <div key={l} className="d2d-stat glass-card">
-              <span className="d2d-stat-num gradient-text-pink">{n}</span>
+              <span className="d2d-stat-num gradient-text">{n}</span>
               <span className="d2d-stat-lbl">{l}</span>
             </div>
           ))}
@@ -150,7 +150,7 @@ export default function Design2D() {
           {categories.map(c => (
             <button
               key={c}
-              className={`fp-filter-btn ${filter === c ? 'active-pink' : ''}`}
+              className={`fp-filter-btn ${filter === c ? 'active-warm' : ''}`}
               onClick={() => setFilter(c)}
             >
               {c}
@@ -186,7 +186,7 @@ export default function Design2D() {
                   <h3 className="d2d-title">{d.title}</h3>
                   <p className="d2d-desc">{d.desc}</p>
                   <div className="d2d-meta">
-                    <div className="d2d-tags">{d.tags?.map(t => <span key={t} className="tag tag-pink">{t}</span>)}</div>
+                    <div className="d2d-tags">{d.tags?.map(t => <span key={t} className="tag tag-gold">{t}</span>)}</div>
                     <div className="d2d-tools">{d.tools?.map(t => <span key={t} className="d2d-tool">{t}</span>)}</div>
                   </div>
                   {d.behance && (
@@ -203,7 +203,7 @@ export default function Design2D() {
 
         {/* Process section */}
         <div className={`d2d-process fade-up ${isVisible}`}>
-          <h2 className="d2d-process-title">My <span className="gradient-text-pink">Creative Process</span></h2>
+          <h2 className="d2d-process-title">My <span className="gradient-text">Creative Process</span></h2>
           <div className="d2d-steps">
             {[
               { step:'01', label:'Ideation', desc:'Deep-dive brainstorming to understand the thematic core and vision.' },
@@ -212,7 +212,7 @@ export default function Design2D() {
               { step:'04', label:'Delivery', desc:'Polished final pieces, multi-format exports, and portfolio case studies.' },
             ].map(({ step, label, desc }) => (
               <div key={step} className="d2d-step glass-card">
-                <span className="d2d-step-num gradient-text-pink">{step}</span>
+                <span className="d2d-step-num gradient-text">{step}</span>
                 <h4 className="d2d-step-label">{label}</h4>
                 <p className="d2d-step-desc">{desc}</p>
               </div>
@@ -234,7 +234,7 @@ export default function Design2D() {
                   <h3>{active.title}</h3>
                   <p>{active.desc}</p>
                   <div className="d2d-meta" style={{ marginTop: '1rem' }}>
-                    <div className="d2d-tags">{active.tags?.map(t => <span key={t} className="tag tag-pink">{t}</span>)}</div>
+                    <div className="d2d-tags">{active.tags?.map(t => <span key={t} className="tag tag-gold">{t}</span>)}</div>
                     <div className="d2d-tools">{active.tools?.map(t => <span key={t} className="d2d-tool">{t}</span>)}</div>
                   </div>
                 </div>

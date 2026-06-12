@@ -4,7 +4,7 @@
  */
 
 const BEHANCE_USER = 'anujadhikary193';
-const PROXY_URL = 'https://api.codetabs.com/v1/proxy/?quest=';
+const PROXY_URL = '/api/behance';
 
 // In-memory cache ensures projects are only fetched once per browser session
 let cachedProjects = null;
@@ -19,12 +19,12 @@ export const fetchBehanceProjects = async () => {
     // Fetch up to 3 pages (36 projects) concurrently to cover the user's full portfolio
     const offsets = [0, 12, 24];
     const fetchPromises = offsets.map(offset => {
-      let targetUrl = `https://www.behance.net/${BEHANCE_USER}`;
+      let targetUrl = `${PROXY_URL}/${BEHANCE_USER}`;
       if (offset > 0) {
         // Behance pagination uses base64 encoded offset exactly like '?after=MTI='
         targetUrl += `?after=${btoa(offset.toString())}`;
       }
-      return fetch(`${PROXY_URL}${encodeURIComponent(targetUrl)}`)
+      return fetch(targetUrl)
         .then(res => res.ok ? res.text() : '')
         .catch(() => '');
     });

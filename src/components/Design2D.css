@@ -30,7 +30,7 @@
 }
 .d2d-stat-lbl {
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* Filters */
@@ -129,7 +129,7 @@
 }
 .d2d-desc {
   font-size: 0.82rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.55;
 }
 
@@ -151,7 +151,7 @@
 }
 .d2d-tool {
   font-size: 0.72rem;
-  color: var(--text-muted);
+  color: #222222;
   background: var(--bg-tertiary);
   padding: 0.2rem 0.6rem;
   border-radius: var(--r-pill);
@@ -213,7 +213,7 @@
 }
 .d2d-step-desc {
   font-size: 0.82rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.55;
 }
 

@@ -155,11 +155,11 @@
 .about-hl-title {
   font-weight: 600;
   font-size: 1.1rem;
-  color: var(--text-primary);
+  color: #ffffff;
 }
 .about-hl-desc {
   font-size: 0.95rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
 }
 
@@ -228,7 +228,7 @@
 .about-tl-role {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #ffffff;
 }
 .about-tl-company {
   color: var(--amber);
@@ -237,7 +237,7 @@
 }
 .about-tl-desc {
   font-size: 0.95rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   margin-top: 0.5rem;
 }
 
@@ -276,7 +276,7 @@
 }
 .about-fact-label {
   font-size: 0.9rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* Responsive */

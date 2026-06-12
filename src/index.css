@@ -11,36 +11,36 @@
 }
 
 :root {
-  /* Core palette — dark + warm amber */
-  --amber:        #E8A838;
-  --amber-light:  #F0C060;
-  --amber-dark:   #C88820;
-  --amber-glow:   rgba(232,168,56,0.15);
-  --warm-white:   #EDE0CC;
-  --warm-gray:    #A89880;
-  --rust:         #C06848;
-  --sage:         #7B9E87;
-  --blue:         #5B8FB9;
-  --purple:       #E8A838; /* mapped to amber — JSX refs */
+  /* Core palette — adjusted for light paper */
+  --amber:        #B57A1E; /* Darker amber for contrast */
+  --amber-light:  #D19230;
+  --amber-dark:   #8C590F;
+  --amber-glow:   rgba(181, 122, 30, 0.15);
+  --warm-white:   #5C4A3D; /* Mapped to dark brown */
+  --warm-gray:    #7A6A5A;
+  --rust:         #A44A2D;
+  --sage:         #527A62;
+  --blue:         #386F9A;
+  --purple:       #B57A1E; 
 
   /* Backgrounds */
-  --bg-primary:   #0C0C0C;
-  --bg-secondary: #141414;
-  --bg-tertiary:  #1A1A1A;
-  --bg-card:      #161616;
+  --bg-primary:   #F2E6D0; /* Base paper color */
+  --bg-secondary: #EBE0CC;
+  --bg-tertiary:  #E3D5BE;
+  --bg-card:      #161616; /* Reverted to black */
   --bg-card-hover:#1E1E1E;
   --bg-elevated:  #1C1C1C;
 
-  /* Text — brightened for readability on dark bg */
-  --text-primary:   #F0EBE3;
-  --text-secondary: #B8AFA0;
-  --text-muted:     #8A8078;
+  /* Text — pure black/dark for maximum visibility on light paper */
+  --text-primary:   #000000; 
+  --text-secondary: #222222;
+  --text-muted:     #444444;
 
-  /* Borders — visible on dark bg */
-  --border:       rgba(255,255,255,0.10);
-  --border-hover: rgba(232,168,56,0.35);
-  --border-subtle:rgba(255,255,255,0.06);
-  --glass-border: rgba(255,255,255,0.12);
+  /* Borders — darker for contrast */
+  --border:       rgba(92, 74, 61, 0.15);
+  --border-hover: rgba(181, 122, 30, 0.4);
+  --border-subtle:rgba(92, 74, 61, 0.08);
+  --glass-border: rgba(92, 74, 61, 0.15);
 
   /* Shadows */
   --shadow-sm:    0 1px 3px rgba(0,0,0,0.3);
@@ -78,7 +78,14 @@ html {
 
 body {
   font-family: var(--font-main);
-  background: var(--bg-primary);
+  background-color: var(--bg-primary);
+  background-image: 
+    radial-gradient(circle at 15% 25%, rgba(139, 69, 19, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 70%, rgba(139, 69, 19, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 10%, rgba(139, 69, 19, 0.04) 0%, transparent 30%),
+    url("https://www.transparenttextures.com/patterns/aged-paper.png");
+  background-blend-mode: multiply;
+  background-attachment: fixed;
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
@@ -169,6 +176,24 @@ body {
 }
 
 /* ── Card — dark elevated surface ──────────── */
+.glass-card,
+.d2d-card,
+.fp-card,
+.gallery-card,
+.modeling-card,
+.project-card,
+.skill-category,
+.about-card,
+.navbar,
+.nav,
+.contact-wrapper {
+  /* Force high-visibility light text inside black boxes */
+  --text-primary:   #FFFFFF;
+  --text-secondary: #E0E0E0;
+  --text-muted:     #A0A0A0;
+  color: var(--text-primary);
+}
+
 .glass-card {
   background: var(--bg-card);
   border: 1px solid var(--border);

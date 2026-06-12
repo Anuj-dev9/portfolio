@@ -20,7 +20,7 @@
   font-family: var(--font-main);
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: #ffffff;
   background: var(--bg-card);
   border: 1px solid var(--border);
   cursor: pointer;

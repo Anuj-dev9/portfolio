@@ -17,7 +17,7 @@
   gap: 0.5rem;
   flex-wrap: wrap;
 }
-.gallery-sort-wrap {}
+
 .gallery-sort-select {
   padding: 0.5rem 1rem;
   border-radius: var(--r-pill);
@@ -131,7 +131,7 @@
 .gallery-item-title {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #ffffff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -139,7 +139,7 @@
 }
 .gallery-item-year {
   font-size: 0.72rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.7);
   font-family: var(--font-mono);
 }
 
