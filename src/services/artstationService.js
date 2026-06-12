@@ -76,16 +76,12 @@ export const fetchArtstationProjects = async () => {
   }
 
   // 3. Fetch fresh from network with timeout + proxy fallbacks
-  const targetUrl = `https://www.artstation.com/${ARTSTATION_USER}.rss`;
+  const targetUrl = `/api/artstation`;
 
-  for (const proxy of PROXIES) {
-    try {
-      const response = await fetchWithTimeout(
-        `${proxy}${encodeURIComponent(targetUrl)}`,
-        FETCH_TIMEOUT
-      );
+  try {
+    const response = await fetchWithTimeout(targetUrl, FETCH_TIMEOUT);
 
-      if (!response.ok) continue;
+    if (response.ok) {
 
       const xmlText = await response.text();
       const parser = new DOMParser();
@@ -138,12 +134,11 @@ export const fetchArtstationProjects = async () => {
         saveToLocalStorage(projects);
         return cachedProjects;
       }
-    } catch (error) {
-      console.warn(`ArtStation proxy failed (${proxy}):`, error.message);
-      continue; // Try next proxy
     }
+  } catch (error) {
+    console.warn(`ArtStation fetch failed:`, error.message);
   }
 
-  console.error('All ArtStation proxies failed');
+  console.error('ArtStation fetch unsuccessful');
   return [];
 };
