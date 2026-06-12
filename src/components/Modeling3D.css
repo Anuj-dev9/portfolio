@@ -185,12 +185,12 @@
 .m3d-tl-step {
   font-weight: 700;
   font-size: 0.9rem;
-  color: #ffffff;
+  color: #000000;
   margin-bottom: 0.25rem;
 }
 .m3d-tl-desc {
   font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.8);
   line-height: 1.45;
   max-width: 160px;
 }
@@ -223,13 +223,13 @@
 .m3d-sw-name {
   font-weight: 600;
   font-size: 0.88rem;
-  color: #ffffff;
+  color: #000000;
   flex: 1;
 }
 .m3d-sw-pct {
   font-family: var(--font-mono);
   font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.8);
 }
 .m3d-sw-track {
   height: 6px;
