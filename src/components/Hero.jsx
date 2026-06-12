@@ -35,7 +35,7 @@ export default function Hero() {
   return (
     <section className="hero" id="home">
       <div className="hero-canvas" style={{ pointerEvents: 'auto' }}>
-        <DotGrid activeColor="#E8A838" baseColor="#555555" proximity={250} />
+        <DotGrid activeColor="#E8A838" baseColor="#000000" proximity={250} />
       </div>
       <div className="hero-orb hero-orb-1" />
       <div className="hero-orb hero-orb-2" />
