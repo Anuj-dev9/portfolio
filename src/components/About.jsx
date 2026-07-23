@@ -47,7 +47,7 @@ const highlights = [
 ]
 
 const timeline = [
-  { year: '2024 - Present', role: 'Founder', company: 'LoopMedia' },
+  { year: '2026', role: 'Founder', company: 'LoopMedia' },
   { year: '2024', role: 'Freelance Creative Dev', company: 'Self' }
 ]
 
