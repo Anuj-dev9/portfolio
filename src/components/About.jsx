@@ -47,6 +47,7 @@ const highlights = [
 ]
 
 const timeline = [
+  { year: '2024 - Present', role: 'Founder', company: 'LoopMedia' },
   { year: '2024', role: 'Freelance Creative Dev', company: 'Self' }
 ]
 
@@ -105,6 +106,7 @@ export default function About() {
               <pre className="code-block"><code>{`const me = {
   name: "Anuj Adhikary",
   role: [
+    "Founder @ LoopMedia",
     "Frontend Developer",
     "2D Graphic Designer",
     "Digital Artist",
